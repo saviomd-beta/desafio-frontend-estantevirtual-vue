@@ -1,7 +1,6 @@
-<template>
-  <div>
-    <h1 class="h3">Cadastro de Endereço</h1>
-  </div>
+<template lang="pug">
+  div
+    h1.h3= 'Cadastro de Endereço'
 </template>
 
 <script>

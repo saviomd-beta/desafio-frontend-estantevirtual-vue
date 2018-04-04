@@ -1,9 +1,8 @@
-<template>
-  <div class="container-fluid" id="app">
-    <cabecalho/>
-    <router-view/>
-    <rodape/>
-  </div>
+<template lang="pug">
+  #app.container-fluid
+    cabecalho
+    router-view
+    rodape
 </template>
 
 <script>

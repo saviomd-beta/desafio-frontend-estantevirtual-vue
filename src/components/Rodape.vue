@@ -1,7 +1,5 @@
-<template>
-  <footer class="border-top mb-3 py-1 small text-center">
-    Coded by Sávio Mendes
-  </footer>
+<template lang="pug">
+  footer.border-top.mb-3.py-1.small.text-center= 'Coded by Sávio Mendes'
 </template>
 
 <script>
