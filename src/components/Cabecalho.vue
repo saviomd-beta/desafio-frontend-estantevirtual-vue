@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-dark bg-dark border border-secondary my-3 rounded">
-    <link-router class="navbar-brand" to="/">Lista de endereços</link-router>
+    <router-link class="navbar-brand" to="/">Lista de endereços</router-link>
   </nav>
 </template>
 
