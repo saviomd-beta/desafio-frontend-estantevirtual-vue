@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld';
+
+import CadastroEndereco from '@/components/CadastroEndereco';
+import ListaEnderecos from '@/components/ListaEnderecos';
 
 Vue.use(Router);
 
@@ -8,8 +10,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld,
+      name: 'ListaEnderecos',
+      component: ListaEnderecos,
+    },
+    {
+      path: '/cadastro-endereco',
+      name: 'CadastroEndereco',
+      component: CadastroEndereco,
     },
   ],
 });
