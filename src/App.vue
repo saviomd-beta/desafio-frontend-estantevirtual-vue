@@ -25,6 +25,9 @@ export default {
       listaEnderecos: [],
     };
   },
+  created: function componenteAppCriado() {
+    this.listaEnderecos = JSON.parse(window.localStorage.getItem('listaEnderecos')) || [];
+  },
   methods: {
     cadastrarEndereco(endereco) {
       const novoEndereco = endereco;
@@ -36,6 +39,11 @@ export default {
       }
       this.listaEnderecos.push(novoEndereco);
       router.push('/');
+    },
+  },
+  watch: {
+    listaEnderecos: (value) => {
+      window.localStorage.setItem('listaEnderecos', JSON.stringify(value));
     },
   },
 };
