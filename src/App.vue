@@ -42,7 +42,7 @@ export default {
     },
   },
   watch: {
-    listaEnderecos: (value) => {
+    listaEnderecos: function observarListaEnderecos(value) {
       window.localStorage.setItem('listaEnderecos', JSON.stringify(value));
     },
   },
