@@ -1,7 +1,7 @@
 <template lang="pug">
   .justify-content-center.row
     .col-12.col-sm-7
-      form(@submit='cadastrarEndereco')
+      form(@submit='enviarCadastroEndereco')
         h1.h3= 'Adicionar endereço'
         .form-group
           label(for='cep')= 'CEP'
@@ -28,8 +28,13 @@
           ul.list-inline
             li.list-inline-item
               router-link.btn.btn-outline-secondary(to='/')= 'Cancelar'
-            li.list-inline-item
+            li.list-inline-item(v-if="typeof $route.params.id === 'undefined'")
               button.btn.btn-primary(type='submit')= 'Criar'
+            template(v-else)
+              li.list-inline-item
+                button.btn.btn-outline-danger(type='button', @click='removerEndereco')= 'Excluir'
+              li.list-inline-item
+                button.btn.btn-primary(type='submit')= 'Atualizar'
 </template>
 
 <script>
@@ -49,10 +54,20 @@ export default {
       },
     };
   },
+  created: function componenteCadastroEnderecoCriado() {
+    if (typeof this.$route.params.id !== 'undefined') {
+      const idEndereco = parseInt(this.$route.params.id, 10);
+      const endereco = this.listaEnderecos.find(obj => obj.id === idEndereco);
+      if (typeof endereco !== 'undefined') {
+        this.endereco = endereco;
+      }
+    }
+  },
   methods: {
-    cadastrarEndereco(event) {
+    enviarCadastroEndereco(event) {
       event.preventDefault();
-      this.$emit('cadastrarEndereco', this.endereco);
+      const action = (typeof this.$route.params.id === 'undefined' ? 'adicionarEndereco' : 'atualizarEndereco');
+      this.$emit(action, this.endereco);
     },
     obterDadosEnderecoViaApi(event) {
       const value = event.target.value;
@@ -73,6 +88,9 @@ export default {
           };
         });
       }
+    },
+    removerEndereco() {
+      this.$emit('removerEndereco', this.endereco.id);
     },
   },
 };

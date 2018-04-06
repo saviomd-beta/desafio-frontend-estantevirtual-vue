@@ -3,7 +3,9 @@
     cabecalho
     router-view(
       v-bind:listaEnderecos='listaEnderecos',
-      v-on:cadastrarEndereco="cadastrarEndereco",
+      v-on:atualizarEndereco="atualizarEndereco",
+      v-on:adicionarEndereco="adicionarEndereco",
+      v-on:removerEndereco="removerEndereco",
     )
     rodape
 </template>
@@ -29,7 +31,12 @@ export default {
     this.listaEnderecos = JSON.parse(window.localStorage.getItem('listaEnderecos')) || [];
   },
   methods: {
-    cadastrarEndereco(endereco) {
+    atualizarEndereco(endereco) {
+      const index = this.listaEnderecos.findIndex(obj => obj.id === endereco.id);
+      this.listaEnderecos[index] = endereco;
+      router.push('/');
+    },
+    adicionarEndereco(endereco) {
       const novoEndereco = endereco;
       if (this.listaEnderecos.length) {
         const ultimoEndereco = this.listaEnderecos[this.listaEnderecos.length - 1];
@@ -39,6 +46,13 @@ export default {
       }
       this.listaEnderecos.push(novoEndereco);
       router.push('/');
+    },
+    removerEndereco(idEndereco) {
+      // eslint-disable-next-line no-alert
+      if (window.confirm('Deseja realmente excluir esse endereço?')) {
+        this.listaEnderecos = this.listaEnderecos.filter(item => item.id !== idEndereco);
+        router.push('/');
+      }
     },
   },
   watch: {

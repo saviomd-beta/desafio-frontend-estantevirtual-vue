@@ -18,5 +18,10 @@ export default new Router({
       name: 'CadastroEndereco',
       component: CadastroEndereco,
     },
+    {
+      path: '/cadastro-endereco/:id',
+      name: 'EdicaoEndereco',
+      component: CadastroEndereco,
+    },
   ],
 });
