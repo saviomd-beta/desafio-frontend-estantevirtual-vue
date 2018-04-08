@@ -35,12 +35,22 @@
                 button.btn.btn-outline-danger(type='button', @click='removerEndereco')= 'Excluir'
               li.list-inline-item
                 button.btn.btn-primary(type='submit')= 'Atualizar'
+    .col-12.col-sm-5
+      .card.card-body
+        informacoes-clima(
+          v-bind:localidade='endereco.localidade',
+        )
 </template>
 
 <script>
+import InformacoesClima from '@/components/InformacoesClima';
+
 export default {
   name: 'CadastroEndereco',
   props: ['listaEnderecos'],
+  components: {
+    'informacoes-clima': InformacoesClima,
+  },
   data() {
     return {
       endereco: {
