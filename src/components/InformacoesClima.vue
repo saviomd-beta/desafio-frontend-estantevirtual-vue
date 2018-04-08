@@ -1,21 +1,44 @@
 <template lang="pug">
-  div.mb-3
+  .mb-3
     h2.h4= 'Clima'
-    .mb-3= '{{this.nomeEstado}} ({{this.abreviaturaEstado}})'
     .mb-3
-      = 'Temperatura: {{this.temperaturaAtual}}°C'
-      .small= 'mín.: {{this.temperaturaMinima}}°C | máx.: {{this.temperaturaMaxima}}°C'
-    .mb-3= 'Umidade: {{this.umidade}}%'
-    .mb-3= 'Nascer do sol: {{this.nascerSol}}'
-    .mb-3= 'Pôr do sol: {{this.porSol}}'
-    .mb-3= 'Hora local: {{this.horaLocal}}'
+      .h1(v-if="this.nomeClasseClima !== '--'")
+        i(:class='this.nomeClasseClima')
+      span.font-weight-bold= '{{this.nomeEstado}}'
+    .mb-3
+      = 'Temperatura'
+      span.font-weight-bold.ml-1= '{{this.temperaturaAtual}}°C'
+      ul.list-inline.small
+        li.list-inline-item
+          = 'mínima'
+          span.font-weight-bold.ml-1= '{{this.temperaturaMinima}}°C'
+        li.list-inline-item
+          = 'máxima'
+          span.font-weight-bold.ml-1= '{{this.temperaturaMaxima}}°C'
+    .mb-3
+      = 'Umidade'
+      span.font-weight-bold.ml-1= '{{this.umidade}}%'
+    .mb-3
+      = 'Nascer do sol'
+      span.font-weight-bold.ml-1= '{{this.nascerSol}}'
+      i.ml-1.wi.wi-sunrise
+    .mb-3
+      = 'Pôr do sol'
+      span.font-weight-bold.ml-1= '{{this.porSol}}'
+      i.ml-1.wi.wi-sunset
+    .mb-3
+      = 'Hora local'
+      span.font-weight-bold.ml-1= '{{this.horaLocal}}'
 </template>
 
 <script>
+import 'weather-icons/css/weather-icons.min.css';
+
 import debounce from 'debounce';
 import moment from 'moment';
 
 import obterDadosClima from '@/helpers/obterDadosClima';
+import obterNomeClasseClima from '@/helpers/obterNomeClasseClima';
 
 export default {
   name: 'InformacoesClima',
@@ -25,6 +48,7 @@ export default {
       abreviaturaEstado: '--',
       horaLocal: '--',
       nascerSol: '--',
+      nomeClasseClima: '--',
       nomeEstado: '--',
       porSol: '--',
       temperaturaAtual: '--',
@@ -44,16 +68,18 @@ export default {
           this.abreviaturaEstado = dados.abreviaturaEstado;
           this.horaLocal = moment(dados.horaLocal).format('HH:mm');
           this.nascerSol = moment(dados.nascerSol).format('HH:mm');
+          this.nomeClasseClima = obterNomeClasseClima(this.abreviaturaEstado, this.horaLocal);
           this.nomeEstado = dados.nomeEstado;
           this.porSol = moment(dados.porSol).format('HH:mm');
           this.temperaturaAtual = parseInt(dados.temperaturaAtual, 10);
           this.temperaturaMaxima = parseInt(dados.temperaturaMaxima, 10);
           this.temperaturaMinima = parseInt(dados.temperaturaMinima, 10);
-          this.umidade = `${dados.umidade}%`;
+          this.umidade = dados.umidade;
         }).catch(() => {
           this.abreviaturaEstado = '--';
           this.horaLocal = '--';
           this.nascerSol = '--';
+          this.nomeClasseClima = '--';
           this.nomeEstado = '--';
           this.porSol = '--';
           this.temperaturaAtual = '--';
