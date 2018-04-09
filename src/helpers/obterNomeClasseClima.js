@@ -25,9 +25,9 @@ const nomesClasseClima = {
   },
 };
 
-function obterNomeClasseClima(abreviaturaEstado, horaLocal, nascerSol, porSol) {
+function obterNomeClasseClima(abreviaturaCondicao, horaLocal, nascerSol, porSol) {
   const periodoDia = (horaLocal >= nascerSol || horaLocal < porSol ? 'day' : 'night');
-  return `wi wi-${periodoDia}-${nomesClasseClima[periodoDia][abreviaturaEstado]}`;
+  return `wi wi-${periodoDia}-${nomesClasseClima[periodoDia][abreviaturaCondicao]}`;
 }
 
 export default obterNomeClasseClima;

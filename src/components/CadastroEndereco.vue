@@ -36,7 +36,7 @@
               li.list-inline-item
                 button.btn.btn-primary(type='submit')= 'Atualizar'
     .col-12.col-sm-5
-      .card.card-body
+      .card.card-body.pb-0
         informacoes-clima(
           v-bind:localidade='endereco.localidade',
         )

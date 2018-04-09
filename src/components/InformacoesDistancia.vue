@@ -1,8 +1,8 @@
 <template lang="pug">
-  div.mb-3
+  .mb-3
     h2.h4= 'Distância'
     .font-weight.bold.mb-3= '{{distanciaParaEndereco}}km'
-    a.btn.btn-primary.btn-sm.mb-3(
+    a.btn.btn-primary.btn-sm(
       :class="(this.botaoRota.desabilitado ? 'disabled' : '')",
       :href="this.botaoRota.url",
       target="_blank",

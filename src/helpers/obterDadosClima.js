@@ -11,10 +11,10 @@ function pegarClimaDaLocalidade(woeid) {
       return response.json();
     }).then((json) => {
       const dadosClima = {
-        abreviaturaEstado: json.consolidated_weather[0].weather_state_abbr,
+        abreviaturaCondicao: json.consolidated_weather[0].weather_state_abbr,
         horaLocal: json.time,
         nascerSol: json.sun_rise,
-        nomeEstado: json.consolidated_weather[0].weather_state_name,
+        nomeCondicao: json.consolidated_weather[0].weather_state_name,
         porSol: json.sun_set,
         temperaturaAtual: json.consolidated_weather[0].the_temp,
         temperaturaMaxima: json.consolidated_weather[0].max_temp,

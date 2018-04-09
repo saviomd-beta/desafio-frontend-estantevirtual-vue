@@ -1,10 +1,10 @@
 <template lang="pug">
   .mb-3
     h2.h4= 'Clima'
-    .mb-3
-      .h1(v-if="this.nomeClasseClima !== '--'")
+    .row
+      .col-auto.h1(v-if="this.nomeClasseClima !== '--'")
         i(:class='this.nomeClasseClima')
-      span.font-weight-bold= '{{this.nomeEstado}}'
+      .col.font-weight-bold= '{{this.nomeCondicao}}'
     .mb-3
       = 'Temperatura'
       span.font-weight-bold.ml-1= '{{this.temperaturaAtual}}°C'
@@ -19,16 +19,15 @@
       = 'Umidade'
       span.font-weight-bold.ml-1= '{{this.umidade}}%'
     .mb-3
-      = 'Nascer do sol'
-      span.font-weight-bold.ml-1= '{{this.nascerSol}}'
-      i.ml-1.wi.wi-sunrise
-    .mb-3
-      = 'Pôr do sol'
-      span.font-weight-bold.ml-1= '{{this.porSol}}'
-      i.ml-1.wi.wi-sunset
-    .mb-3
       = 'Hora local'
       span.font-weight-bold.ml-1= '{{this.horaLocal}}'
+      ul.list-inline.small
+        li.list-inline-item
+          i.wi.wi-sunrise
+          span.font-weight-bold.ml-1= '{{this.nascerSol}}'
+        li.list-inline-item
+          i.wi.wi-sunset
+          span.font-weight-bold.ml-1= '{{this.porSol}}'
 </template>
 
 <script>
@@ -39,17 +38,18 @@ import moment from 'moment';
 
 import obterDadosClima from '@/helpers/obterDadosClima';
 import obterNomeClasseClima from '@/helpers/obterNomeClasseClima';
+import obterNomeTraduzidoClima from '@/helpers/obterNomeTraduzidoClima';
 
 export default {
   name: 'InformacoesClima',
   props: ['localidade'],
   data() {
     return {
-      abreviaturaEstado: '--',
+      abreviaturaCondicao: '--',
       horaLocal: '--',
       nascerSol: '--',
       nomeClasseClima: '--',
-      nomeEstado: '--',
+      nomeCondicao: '--',
       porSol: '--',
       temperaturaAtual: '--',
       temperaturaMaxima: '--',
@@ -65,23 +65,23 @@ export default {
       if (this.localidade.length) {
         const dadosClima = obterDadosClima(this.localidade);
         dadosClima.then((dados) => {
-          this.abreviaturaEstado = dados.abreviaturaEstado;
+          this.abreviaturaCondicao = dados.abreviaturaCondicao;
           this.horaLocal = moment(dados.horaLocal).format('HH:mm');
           this.nascerSol = moment(dados.nascerSol).format('HH:mm');
-          this.nomeClasseClima = obterNomeClasseClima(this.abreviaturaEstado,
+          this.nomeClasseClima = obterNomeClasseClima(this.abreviaturaCondicao,
             dados.horaLocal, dados.nascerSol, dados.porSol);
-          this.nomeEstado = dados.nomeEstado;
+          this.nomeCondicao = obterNomeTraduzidoClima(dados.abreviaturaCondicao);
           this.porSol = moment(dados.porSol).format('HH:mm');
           this.temperaturaAtual = parseInt(dados.temperaturaAtual, 10);
           this.temperaturaMaxima = parseInt(dados.temperaturaMaxima, 10);
           this.temperaturaMinima = parseInt(dados.temperaturaMinima, 10);
           this.umidade = dados.umidade;
         }).catch(() => {
-          this.abreviaturaEstado = '--';
+          this.abreviaturaCondicao = '--';
           this.horaLocal = '--';
           this.nascerSol = '--';
           this.nomeClasseClima = '--';
-          this.nomeEstado = '--';
+          this.nomeCondicao = '--';
           this.porSol = '--';
           this.temperaturaAtual = '--';
           this.temperaturaMaxima = '--';
