@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import db from './firebase';
 import router from './router';
 
 import Rodape from './components/Rodape';
@@ -27,8 +28,10 @@ export default {
       listaEnderecos: [],
     };
   },
-  created: function componenteAppCriado() {
-    this.listaEnderecos = JSON.parse(window.localStorage.getItem('listaEnderecos')) || [];
+  firebase: {
+    listaEnderecos: {
+      source: db.ref('listaEnderecos'),
+    },
   },
   methods: {
     atualizarEndereco(endereco) {
@@ -44,7 +47,7 @@ export default {
       } else {
         novoEndereco.id = 1;
       }
-      this.listaEnderecos.push(novoEndereco);
+      this.$firebaseRefs.listaEnderecos.push(novoEndereco);
       router.push('/');
     },
     removerEndereco(idEndereco) {
@@ -53,11 +56,6 @@ export default {
         this.listaEnderecos = this.listaEnderecos.filter(item => item.id !== idEndereco);
         router.push('/');
       }
-    },
-  },
-  watch: {
-    listaEnderecos: function observarListaEnderecos(value) {
-      window.localStorage.setItem('listaEnderecos', JSON.stringify(value));
     },
   },
 };
