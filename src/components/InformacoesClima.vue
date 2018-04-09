@@ -68,7 +68,8 @@ export default {
           this.abreviaturaEstado = dados.abreviaturaEstado;
           this.horaLocal = moment(dados.horaLocal).format('HH:mm');
           this.nascerSol = moment(dados.nascerSol).format('HH:mm');
-          this.nomeClasseClima = obterNomeClasseClima(this.abreviaturaEstado, this.horaLocal);
+          this.nomeClasseClima = obterNomeClasseClima(this.abreviaturaEstado,
+            dados.horaLocal, dados.nascerSol, dados.porSol);
           this.nomeEstado = dados.nomeEstado;
           this.porSol = moment(dados.porSol).format('HH:mm');
           this.temperaturaAtual = parseInt(dados.temperaturaAtual, 10);
