@@ -1,5 +1,5 @@
 <template lang="pug">
-  .justify-content-center.row
+  .justify-content-center.mb-3.row
     .col-12.col-sm-7
       form(@submit='enviarCadastroEndereco')
         h1.h3= 'Adicionar endereço'
@@ -40,16 +40,21 @@
         informacoes-clima(
           v-bind:localidade='endereco.localidade',
         )
+        informacoes-distancia(
+          v-bind:endereco='endereco',
+        )
 </template>
 
 <script>
 import InformacoesClima from '@/components/InformacoesClima';
+import InformacoesDistancia from '@/components/InformacoesDistancia';
 
 export default {
   name: 'CadastroEndereco',
   props: ['listaEnderecos'],
   components: {
     'informacoes-clima': InformacoesClima,
+    'informacoes-distancia': InformacoesDistancia,
   },
   data() {
     return {

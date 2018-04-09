@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.mb-3
+  .mb-3
     .row
       .col
         h1.h3= 'Lista de endereços'
