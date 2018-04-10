@@ -2,7 +2,7 @@ import Vue from 'vue';
 import TabelaEnderecos from '@/components/TabelaEnderecos';
 
 describe('TabelaEnderecos.vue', () => {
-  it('tabela deve ter 2 endereços exibidos', () => {
+  it('deve ter 2 endereços exibidos', () => {
     const propsData = {
       listaEnderecos: [
         {
