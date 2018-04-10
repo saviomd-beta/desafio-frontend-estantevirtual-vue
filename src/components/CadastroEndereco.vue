@@ -49,6 +49,8 @@
 import InformacoesClima from '@/components/InformacoesClima';
 import InformacoesDistancia from '@/components/InformacoesDistancia';
 
+import router from '@/router';
+
 export default {
   name: 'CadastroEndereco',
   props: ['listaEnderecos'],
@@ -99,11 +101,15 @@ export default {
       }
     },
     popularDadosEndereco() {
-      if (typeof this.$route.params.id !== 'undefined') {
+      if (typeof this.$route.params.id !== 'undefined' && this.listaEnderecos.length) {
         const idEndereco = parseInt(this.$route.params.id, 10);
         const endereco = this.listaEnderecos.find(obj => obj.id === idEndereco);
         if (typeof endereco !== 'undefined') {
           this.endereco = endereco;
+        } else {
+          // eslint-disable-next-line no-alert
+          alert('Esse endereço não está cadastrado');
+          router.push('/');
         }
       }
     },
