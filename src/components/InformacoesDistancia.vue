@@ -28,9 +28,6 @@ export default {
       enderecoAtual: '',
     };
   },
-  created: function componenteInformacoesDistanciaCriado() {
-    this.obterDadosEnderecoAtual();
-  },
   methods: {
     atualizarBotaoRota() {
       const endereco = encodeURIComponent(`${this.endereco.logradouro} ${this.endereco.bairro} ${this.endereco.localidade} ${this.endereco.cep}`);
@@ -48,6 +45,9 @@ export default {
         const posicao2 = dados;
         const distancia = geolib.getDistance(posicao1, posicao2);
         this.distanciaParaEndereco = Math.floor(distancia / 1000);
+      }).catch((mensagemErro) => {
+        // eslint-disable-next-line no-console
+        console.log(mensagemErro);
       });
     },
     obterDadosEnderecoAtual() {
@@ -64,6 +64,9 @@ export default {
         });
       }
     },
+  },
+  created: function componenteInformacoesDistanciaCriado() {
+    this.obterDadosEnderecoAtual();
   },
   watch: {
     endereco: debounce(function observarEndereco() {

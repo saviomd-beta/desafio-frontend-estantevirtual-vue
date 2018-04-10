@@ -69,15 +69,6 @@ export default {
       },
     };
   },
-  created: function componenteCadastroEnderecoCriado() {
-    if (typeof this.$route.params.id !== 'undefined') {
-      const idEndereco = parseInt(this.$route.params.id, 10);
-      const endereco = this.listaEnderecos.find(obj => obj.id === idEndereco);
-      if (typeof endereco !== 'undefined') {
-        this.endereco = endereco;
-      }
-    }
-  },
   methods: {
     enviarCadastroEndereco(event) {
       event.preventDefault();
@@ -101,11 +92,31 @@ export default {
             logradouro: json.logradouro,
             uf: json.uf,
           };
+        }).catch((error) => {
+          // eslint-disable-next-line no-console
+          console.log(error.message);
         });
+      }
+    },
+    popularDadosEndereco() {
+      if (typeof this.$route.params.id !== 'undefined') {
+        const idEndereco = parseInt(this.$route.params.id, 10);
+        const endereco = this.listaEnderecos.find(obj => obj.id === idEndereco);
+        if (typeof endereco !== 'undefined') {
+          this.endereco = endereco;
+        }
       }
     },
     removerEndereco() {
       this.$emit('removerEndereco', this.endereco.id);
+    },
+  },
+  created: function componenteCadastroEnderecoCriado() {
+    this.popularDadosEndereco();
+  },
+  watch: {
+    listaEnderecos: function observarListaEnderecos() {
+      this.popularDadosEndereco();
     },
   },
 };

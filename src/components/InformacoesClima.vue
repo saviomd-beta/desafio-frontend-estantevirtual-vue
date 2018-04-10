@@ -57,9 +57,6 @@ export default {
       umidade: '--',
     };
   },
-  created: function componenteInformacoesClimaCriado() {
-    this.obterPopularDadosClima();
-  },
   methods: {
     obterPopularDadosClima() {
       if (this.localidade.length) {
@@ -90,6 +87,9 @@ export default {
         });
       }
     },
+  },
+  created: function componenteInformacoesClimaCriado() {
+    this.obterPopularDadosClima();
   },
   watch: {
     localidade: debounce(function observarLocalidade() {
